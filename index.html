@@ -1,0 +1,926 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Agricultura e Meio Ambiente</title>
+
+<style>
+
+/* =====================================================
+DESIGN SYSTEM
+===================================================== */
+
+:root{
+    --primary:#2E7D32;
+    --secondary:#66BB6A;
+    --accent:#FFC107;
+    --dark:#1B4332;
+    --light:#F8F9FA;
+    --text:#333;
+    --radius:18px;
+
+    --shadow:
+        0 10px 25px rgba(0,0,0,.08);
+
+    --transition:.35s ease;
+
+    --font-size:16px;
+}
+
+.high-contrast{
+    --primary:#000;
+    --secondary:#fff;
+    --accent:#ff0;
+    --light:#000;
+    --text:#fff;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Segoe UI',sans-serif;
+    background:var(--light);
+    color:var(--text);
+    font-size:var(--font-size);
+    line-height:1.6;
+}
+
+/* Skip Link */
+
+.skip-link{
+    position:absolute;
+    left:-999px;
+    top:auto;
+}
+
+.skip-link:focus{
+    left:20px;
+    top:20px;
+    background:#000;
+    color:#fff;
+    padding:10px;
+    z-index:9999;
+}
+
+/* =====================================================
+HEADER
+===================================================== */
+
+header{
+    background:linear-gradient(135deg,var(--primary),var(--dark));
+    color:white;
+    padding:20px 8%;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.nav{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.logo{
+    font-size:1.6rem;
+    font-weight:700;
+}
+
+.accessibility{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.accessibility button{
+    padding:8px 12px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+/* =====================================================
+HERO
+===================================================== */
+
+.hero{
+    min-height:90vh;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    align-items:center;
+    gap:40px;
+    padding:80px 8%;
+}
+
+.hero h1{
+    font-size:3rem;
+    margin-bottom:20px;
+}
+
+.hero p{
+    margin-bottom:25px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn{
+    background:var(--primary);
+    color:white;
+    text-decoration:none;
+    padding:14px 24px;
+    border-radius:12px;
+    transition:var(--transition);
+}
+
+.btn:hover{
+    transform:translateY(-4px);
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.gallery figure{
+    background:white;
+    border-radius:var(--radius);
+    overflow:hidden;
+    box-shadow:var(--shadow);
+}
+
+.gallery img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
+
+.gallery figcaption{
+    padding:10px;
+    font-size:.9rem;
+}
+
+/* =====================================================
+SECTIONS
+===================================================== */
+
+section{
+    padding:80px 8%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+    color:var(--dark);
+}
+
+/* Cards */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:white;
+    border-radius:var(--radius);
+    padding:25px;
+    box-shadow:var(--shadow);
+    transition:var(--transition);
+}
+
+.card:hover{
+    transform:translateY(-8px);
+}
+
+.icon{
+    font-size:2rem;
+    margin-bottom:15px;
+}
+
+/* =====================================================
+INTERACTIVE
+===================================================== */
+
+.interactive{
+    text-align:center;
+    background:linear-gradient(135deg,#E8F5E9,#C8E6C9);
+    border-radius:20px;
+    padding:50px;
+}
+
+.interactive button{
+    margin-top:20px;
+    padding:15px 30px;
+    border:none;
+    background:var(--accent);
+    border-radius:15px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* =====================================================
+STATS
+===================================================== */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+}
+
+.stat{
+    text-align:center;
+    background:white;
+    padding:30px;
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+}
+
+.number{
+    font-size:2.5rem;
+    font-weight:bold;
+    color:var(--primary);
+}
+
+/* =====================================================
+TABS
+===================================================== */
+
+.tab-buttons{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.tab-btn{
+    padding:12px 20px;
+    border:none;
+    cursor:pointer;
+    border-radius:10px;
+}
+
+.tab-content{
+    margin-top:30px;
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    box-shadow:var(--shadow);
+}
+
+/* =====================================================
+CAROUSEL
+===================================================== */
+
+.carousel{
+    max-width:900px;
+    margin:auto;
+    position:relative;
+}
+
+.slide{
+    display:none;
+}
+
+.slide.active{
+    display:block;
+}
+
+.slide img{
+    width:100%;
+    border-radius:20px;
+}
+
+.carousel-controls{
+    margin-top:20px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+.carousel-controls button{
+    padding:10px 15px;
+    border:none;
+    cursor:pointer;
+}
+
+/* =====================================================
+FAQ
+===================================================== */
+
+.faq-item{
+    background:white;
+    margin-bottom:15px;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.faq-question{
+    width:100%;
+    padding:20px;
+    border:none;
+    text-align:left;
+    cursor:pointer;
+    background:#fff;
+    font-weight:bold;
+}
+
+.faq-answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .4s ease;
+    padding:0 20px;
+}
+
+.faq-item.active .faq-answer{
+    max-height:300px;
+    padding:20px;
+}
+
+/* =====================================================
+FOOTER
+===================================================== */
+
+footer{
+    background:var(--dark);
+    color:white;
+    padding:40px 8%;
+    text-align:center;
+}
+
+/* Scroll Reveal */
+
+.reveal{
+    opacity:0;
+    transform:translateY(50px);
+    transition:.8s;
+}
+
+.reveal.show{
+    opacity:1;
+    transform:none;
+}
+
+/* Responsivo */
+
+@media(max-width:900px){
+
+.hero{
+grid-template-columns:1fr;
+}
+
+.hero h1{
+font-size:2.2rem;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<a href="#main" class="skip-link">Ir para o conteúdo principal</a>
+
+<header>
+<div class="nav">
+
+<div class="logo">
+🌱 AgroEduca
+</div>
+
+<div class="accessibility">
+
+<button onclick="changeFont(1)" aria-label="Aumentar Fonte">A+</button>
+
+<button onclick="changeFont(-1)" aria-label="Diminuir Fonte">A-</button>
+
+<button onclick="toggleContrast()" aria-label="Alto Contraste">
+Contraste
+</button>
+
+</div>
+
+</div>
+</header>
+
+<main id="main">
+
+<!-- HERO -->
+
+<section class="hero reveal">
+
+<div>
+
+<h1>
+Como produzir alimentos sem comprometer o meio ambiente?
+</h1>
+
+<p>
+A agricultura é essencial para a sociedade, mas também gera impactos ambientais.
+Conhecer os desafios e as soluções é o primeiro passo para construir sistemas produtivos mais sustentáveis.
+</p>
+
+<div class="hero-buttons">
+<a href="#diagnostico" class="btn">Entender o problema</a>
+<a href="#solucoes" class="btn">Conhecer soluções</a>
+</div>
+
+</div>
+
+<div class="gallery">
+
+<figure>
+<img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854">
+<figcaption>Agricultura sustentável.</figcaption>
+</figure>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399">
+<figcaption>Produção de alimentos.</figcaption>
+</figure>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6">
+<figcaption>Conservação ambiental.</figcaption>
+</figure>
+
+<figure>
+<img src="https://images.unsplash.com/photo-1472396961693-142e6e269027">
+<figcaption>Biodiversidade.</figcaption>
+</figure>
+
+</div>
+
+</section>
+
+<!-- DIAGNÓSTICO -->
+
+<section id="diagnostico">
+
+<h2 class="section-title">
+Diagnóstico do Problema
+</h2>
+
+<div class="grid" id="diagnosticCards"></div>
+
+</section>
+
+<!-- EXPERIÊNCIA -->
+
+<section>
+
+<div class="interactive reveal">
+
+<h2>Desafio Interativo</h2>
+
+<p>
+Monte uma fazenda sustentável equilibrando produção agrícola,
+uso da água e preservação ambiental.
+</p>
+
+<button>
+Iniciar Simulador
+</button>
+
+</div>
+
+</section>
+
+<!-- PANORAMA -->
+
+<section>
+
+<h2 class="section-title">
+Panorama Geral
+</h2>
+
+<div class="stats">
+
+<div class="stat">
+<div class="number">4</div>
+<h3>Fatores Principais</h3>
+<p>Solo, água, biodiversidade e produção.</p>
+</div>
+
+<div class="stat">
+<div class="number">70%</div>
+<h3>Uso de Água</h3>
+<p>Grande parte da água doce é usada na agricultura.</p>
+</div>
+
+<div class="stat">
+<div class="number">100%</div>
+<h3>Dependência</h3>
+<p>A alimentação humana depende do setor agrícola.</p>
+</div>
+
+<div class="stat">
+<div class="number">+5</div>
+<h3>Benefícios</h3>
+<p>Práticas sustentáveis geram ganhos múltiplos.</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- IMPACTOS -->
+
+<section>
+
+<h2 class="section-title">
+Impactos da Agricultura
+</h2>
+
+<div class="tab-buttons">
+
+<button class="tab-btn" onclick="openTab('eco')">Econômico</button>
+
+<button class="tab-btn" onclick="openTab('amb')">Ambiental</button>
+
+<button class="tab-btn" onclick="openTab('soc')">Social</button>
+
+</div>
+
+<div class="tab-content" id="tabContent"></div>
+
+</section>
+
+<!-- CARROSSEL -->
+
+<section>
+
+<h2 class="section-title">
+Casos e Exemplos Reais
+</h2>
+
+<div class="carousel" tabindex="0">
+
+<div class="slide active">
+<img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854">
+<h3>Plantio Direto</h3>
+<p>Reduz erosão e melhora a conservação do solo.</p>
+</div>
+
+<div class="slide">
+<img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399">
+<h3>Agrofloresta</h3>
+<p>Integra árvores e produção agrícola.</p>
+</div>
+
+<div class="slide">
+<img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6">
+<h3>Irrigação Inteligente</h3>
+<p>Economia de água e aumento da eficiência.</p>
+</div>
+
+<div class="carousel-controls">
+<button id="prev">◀</button>
+<button id="next">▶</button>
+</div>
+
+</div>
+
+</section>
+
+<!-- MULTIMÍDIA -->
+
+<section>
+
+<h2 class="section-title">
+Conteúdo Multimídia
+</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>Vídeo Explicativo</h3>
+
+<iframe width="100%" height="250"
+src="https://www.youtube.com/embed/jr6Y0gL4JzA"
+title="Vídeo educativo"></iframe>
+
+</div>
+
+<div class="card">
+<h3>Podcast e Entrevistas</h3>
+<p>
+Sugestão de escuta:
+programas sobre agricultura sustentável,
+mudanças climáticas e inovação no campo.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- SOLUÇÕES -->
+
+<section id="solucoes">
+
+<h2 class="section-title">
+Soluções Sustentáveis
+</h2>
+
+<div class="grid">
+
+<div class="card">
+<div class="icon">🌳</div>
+<h3>Agroflorestas</h3>
+<p>Integração entre árvores e cultivos.</p>
+</div>
+
+<div class="card">
+<div class="icon">💧</div>
+<h3>Uso Racional da Água</h3>
+<p>Irrigação eficiente e monitoramento.</p>
+</div>
+
+<div class="card">
+<div class="icon">♻️</div>
+<h3>Reciclagem</h3>
+<p>Redução de resíduos agrícolas.</p>
+</div>
+
+<div class="card">
+<div class="icon">🐝</div>
+<h3>Biodiversidade</h3>
+<p>Proteção dos polinizadores.</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- FAQ -->
+
+<section>
+
+<h2 class="section-title">
+Perguntas Frequentes
+</h2>
+
+<div class="faq-item">
+<button class="faq-question">
+O que é agricultura sustentável?
+</button>
+<div class="faq-answer">
+Produção agrícola que atende às necessidades atuais sem comprometer o futuro.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">
+Por que preservar o solo?
+</button>
+<div class="faq-answer">
+O solo saudável é fundamental para produção de alimentos.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">
+Como reduzir impactos ambientais?
+</button>
+<div class="faq-answer">
+Utilizando práticas conservacionistas e tecnologias sustentáveis.
+</div>
+</div>
+
+</section>
+
+</main>
+
+<footer>
+
+<h3>Sobre o Projeto</h3>
+
+<p>
+Plataforma educacional sobre Agricultura e Meio Ambiente.
+</p>
+
+<p>
+Autores: Equipe Educacional
+</p>
+
+<p>
+Instagram • YouTube • LinkedIn
+</p>
+
+<p>
+© 2026 Todos os direitos reservados.
+</p>
+
+</footer>
+
+<script>
+
+/* ==========================================
+ACESSIBILIDADE
+========================================== */
+
+let currentSize = 16;
+
+function changeFont(value){
+currentSize += value;
+document.documentElement.style.setProperty(
+'--font-size',
+currentSize + 'px'
+);
+}
+
+function toggleContrast(){
+document.body.classList.toggle('high-contrast');
+}
+
+/* ==========================================
+CARDS DINÂMICOS
+========================================== */
+
+const diagnostics = [
+
+{
+icon:"🌾",
+title:"Expansão Agrícola",
+text:"Ampliação de áreas produtivas."
+},
+
+{
+icon:"💧",
+title:"Uso da Água",
+text:"Consumo elevado em sistemas agrícolas."
+},
+
+{
+icon:"🌳",
+title:"Desmatamento",
+text:"Redução de habitats naturais."
+},
+
+{
+icon:"🧪",
+title:"Insumos Químicos",
+text:"Possíveis impactos ambientais."
+}
+
+];
+
+const container =
+document.getElementById('diagnosticCards');
+
+diagnostics.forEach(item=>{
+
+container.innerHTML += `
+<div class="card reveal">
+<div class="icon">${item.icon}</div>
+<h3>${item.title}</h3>
+<p>${item.text}</p>
+</div>
+`;
+
+});
+
+/* ==========================================
+TABS
+========================================== */
+
+const tabs = {
+
+eco:"A agricultura gera emprego, renda e abastecimento.",
+
+amb:"Pode afetar solo, água e biodiversidade quando mal manejada.",
+
+soc:"Contribui para segurança alimentar e desenvolvimento regional."
+
+};
+
+function openTab(tab){
+document.getElementById('tabContent').innerHTML=tabs[tab];
+}
+
+openTab('eco');
+
+/* ==========================================
+CAROUSEL
+========================================== */
+
+const slides =
+document.querySelectorAll('.slide');
+
+let current=0;
+
+function showSlide(index){
+
+slides.forEach(
+s=>s.classList.remove('active')
+);
+
+slides[index].classList.add('active');
+
+}
+
+function nextSlide(){
+current=(current+1)%slides.length;
+showSlide(current);
+}
+
+function prevSlide(){
+current=(current-1+slides.length)%slides.length;
+showSlide(current);
+}
+
+document.getElementById('next')
+.addEventListener('click',nextSlide);
+
+document.getElementById('prev')
+.addEventListener('click',prevSlide);
+
+let autoplay =
+setInterval(nextSlide,5000);
+
+const carousel =
+document.querySelector('.carousel');
+
+carousel.addEventListener(
+'mouseenter',
+()=>clearInterval(autoplay)
+);
+
+carousel.addEventListener(
+'mouseleave',
+()=>autoplay=setInterval(nextSlide,5000)
+);
+
+document.addEventListener(
+'keydown',
+(e)=>{
+if(e.key==="ArrowRight") nextSlide();
+if(e.key==="ArrowLeft") prevSlide();
+}
+);
+
+/* ==========================================
+FAQ
+========================================== */
+
+document
+.querySelectorAll('.faq-question')
+.forEach(btn=>{
+
+btn.addEventListener('click',()=>{
+
+btn.parentElement
+.classList.toggle('active');
+
+});
+
+});
+
+/* ==========================================
+SCROLL REVEAL
+========================================== */
+
+const observer =
+new IntersectionObserver(entries=>{
+
+entries.forEach(entry=>{
+
+if(entry.isIntersecting){
+
+entry.target.classList.add('show');
+
+}
+
+});
+
+});
+
+document
+.querySelectorAll('.reveal')
+.forEach(el=>observer.observe(el));
+
+</script>
+
+</body>
+</html>
+```
